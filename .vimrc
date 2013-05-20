@@ -10,7 +10,7 @@ set showcmd
 set wrap
 set noerrorbells			" no beeps.
 set so=5				" scroll offset 5 lines
-set listchars=tab:>-,trail:·,eol:$
+set listchars=tab:>-,trail:~,eol:$
 set iskeyword=@,48-57,192-255,_,-
 set tabstop=4
 set shiftwidth=4
