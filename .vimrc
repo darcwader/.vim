@@ -29,6 +29,16 @@ set tags+=tags
 filetype off
 filetype plugin indent off
 set runtimepath+=/usr/local/go/misc/vim
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'scrooloose/nerdtree.git'
+
+call vundle#end()
+
+
 filetype plugin indent on
 
 syntax on
