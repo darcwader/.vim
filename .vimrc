@@ -20,7 +20,6 @@ set ttyscroll=0
 set ttyfast
 set showbreak=-  
 set nu
-
 set ignorecase
 set incsearch
 set smartcase
@@ -38,8 +37,6 @@ if &t_Co > 2 || has("gui_running")
 	colo murphy
     set guifont=Inconsolata:h14
 endif
-
-let g:auto_save = 0
 
 let mapleader = ","
 imap jj <Esc>
