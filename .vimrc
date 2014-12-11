@@ -35,6 +35,10 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree.git'
+Plugin 'Valloric/YouCompleteMe.git'
+Plugin 'mattn/emmet-vim'
+Plugin 'marijnh/tern_for_vim.git'
+Plugin 'wincent/command-t'
 
 call vundle#end()
 
@@ -45,7 +49,9 @@ syntax on
 
 if &t_Co > 2 || has("gui_running")
 	colo murphy
-    set guifont=Inconsolata:h14
+    set guifont=Inconsolata:h12
+    set guioptions-=r
+    set guioptions-=T
 endif
 
 let mapleader = ","
@@ -70,6 +76,8 @@ au BufRead,BufNewFile *.json set filetype=json
 "disable bells
 au GUIEnter * set vb t_vb=
 
-execute pathogen#infect()
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+"execute pathogen#infect()
 
 
