@@ -49,13 +49,14 @@ syntax on
 
 if &t_Co > 2 || has("gui_running")
 	colo murphy
-    set guifont=Inconsolata:h12
+    set guifont=Inconsolata:h14
     set guioptions-=r
     set guioptions-=T
 endif
 
 let mapleader = ","
 imap jj <Esc>
+imap <leader>/ </<C-x><C-p>>
 nmap k gk
 nmap j gj
 nmap <C-j> <C-w>j
@@ -77,6 +78,7 @@ au BufRead,BufNewFile *.json set filetype=json
 au GUIEnter * set vb t_vb=
 
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:closetag_html_style=1 
 
 "execute pathogen#infect()
 
