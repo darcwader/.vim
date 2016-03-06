@@ -48,8 +48,6 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'fatih/vim-go'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'ervandew/supertab'
-
 
 call vundle#end()
 
@@ -80,8 +78,13 @@ nmap <leader>w :w<CR>
 nmap <leader>u :Tabularize /\|<CR>
 nmap <leader>i :GoImports<CR>
 nmap <leader>b :GoBuild<CR>
-nmap <leader>r :GoRun<CR>
-imap <leader>b :w<CR>:GoBuild<CR>
+nmap <leader>r :!go run %
+nmap <leader>tt :!go run % <test.inp<CR>
+nmap <leader>ts :!go run % <*small*.in >small.out
+nmap <leader>tl :!go run % <*large*.in >large.out
+
+
+nmap <leader>h :set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
 " vim-lldb
 nnoremap <silent> <leader>lr :Lrun<CR> 
@@ -94,8 +97,6 @@ nnoremap <silent> <leader>lo :Lfinish<CR>
 nnoremap <silent> <leader>lp :Lprint<CR>
 nnoremap <silent> <leader>lv :Lframe variable<CR>
 
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
 
 map <F10> :runtime! ftplugin/main.vim<CR>
 nmap ; :NERDTreeToggle<CR> 

@@ -1,0 +1,64 @@
+snippet errp "Error panic" b
+if err != nil {
+	panic(err)
+}
+${0}
+endsnippet
+
+snippet scan "Scan variable" b
+fmt.Fscanf(f, ${0}) 
+endsnippet
+
+snippet gcj "Gcj template" b
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"io"
+	"os"
+	"strings"
+)
+
+var testInp string = \`\`
+
+var r io.Reader
+var b io.WriteCloser
+var w *bufio.Writer
+
+func init() {
+	input := ""  //"" for string
+	output := "" //"" for stdout
+
+	var err error
+	if input == "" {
+		r = bufio.NewReader(strings.NewReader(testInp))
+	} else if r, err = os.Open(input); err != nil {
+		panic(err)
+	}
+
+	if output == "" {
+		b = os.Stdout
+	} else if b, err = os.OpenFile(output, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644); err != nil {
+		panic(err)
+	}
+	w = bufio.NewWriter(b)
+}
+
+func main() {
+	defer b.Close()
+	defer w.Flush()
+
+	var T uint
+	fmt.Fscan(r, &T)
+
+	var t uint
+	for t = 1; t <= T; t++ {
+		fmt.Fprintf(w, "Case #%d: %s\n", t, testCase(t))
+	}
+}
+
+func testCase(t uint) string {
+	return fmt.Sprintf("%d", t)
+}
+endsnippet
