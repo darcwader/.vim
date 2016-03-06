@@ -32,6 +32,7 @@ set wildmenu
 
 filetype off
 filetype plugin indent off
+set runtimepath+=/usr/local/go/misc/vim
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
@@ -65,6 +66,7 @@ endif
 
 let mapleader = ","
 imap jj <Esc>
+imap <leader>/ </<C-x><C-p>>
 nmap k gk
 nmap j gj
 nmap <C-j> <C-w>j
