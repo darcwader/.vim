@@ -66,8 +66,21 @@ nmap <C-l> <C-w>l
 " TODO:map <C-J> <C-w>J
 map <C-leader> <C-w><C-w>
 nmap <leader>q :q<CR>
-nmap <leader>c :close<CR>
 nmap <leader>w :w<CR>
+
+" vim-lldb
+nnoremap <silent> <leader>lr :Lrun<CR> 
+nnoremap <silent> <leader>lb :Lbreakpoint<CR>
+nnoremap <silent> <leader>lc :Lcontinue<CR>
+nnoremap <silent> <leader>ln :Lnext<CR>
+nnoremap <silent> <leader>ls :Lstep<CR>
+nnoremap <silent> <leader>li :Lstepin<CR>
+nnoremap <silent> <leader>lo :Lfinish<CR>
+nnoremap <silent> <leader>lp :Lprint<CR>
+nnoremap <silent> <leader>lv :Lframe variable<CR>
+
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
 
 map <F10> :runtime! ftplugin/main.vim<CR>
 nmap ; :NERDTreeToggle<CR> 
@@ -79,6 +92,7 @@ au GUIEnter * set vb t_vb=
 
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:closetag_html_style=1 
+let g:go_fmt_command = "goimports"
 
 "execute pathogen#infect()
 
