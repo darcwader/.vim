@@ -76,10 +76,13 @@ map <C-leader> <C-w><C-w>
 nmap <leader>q :q<CR>
 nmap <leader>w :w<CR>
 nmap <leader>u :Tabularize /\|<CR>
+
+" Golang 
 nmap <leader>i :GoImports<CR>
 nmap <leader>b :GoBuild<CR>
 nmap <leader>r :!go run %
-nmap <leader>tt :!go run % <test.inp<CR>
+nmap <leader>rr :!go run %<CR>
+nmap <leader>tt :!go run %<CR>
 nmap <leader>ts :!go run % <*small*.in >small.out
 nmap <leader>tl :!go run % <*large*.in >large.out
 
