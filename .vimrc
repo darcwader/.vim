@@ -127,6 +127,7 @@ let g:go_fmt_autosave = 1
 
 
 au BufRead,BufNewFile *.json set filetype=json
+au FileType go set foldmethod=marker
 
 "disable bells
 au GUIEnter * set vb t_vb=

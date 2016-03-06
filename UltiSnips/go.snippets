@@ -22,13 +22,18 @@ import (
 
 var testInp string = \`\`
 
+const (
+	input  = "" //"" for string
+	output = "" //"" for stdout
+)
+
+/* START TEMPLATE {{{ */
+
 var r io.Reader
 var b io.WriteCloser
 var w *bufio.Writer
 
 func init() {
-	input := ""  //"" for string
-	output := "" //"" for stdout
 
 	var err error
 	if input == "" {
@@ -54,11 +59,14 @@ func main() {
 
 	var t uint
 	for t = 1; t <= T; t++ {
-		fmt.Fprintf(w, "Case #%d: %s\n", t, testCase(t))
+		testCase(t)
 	}
 }
 
-func testCase(t uint) string {
-	return fmt.Sprintf("%d", t)
+/* END TEMPLATE }}} */
+
+func testCase(t uint) {
+	var ans string
+	fmt.Fprintf(w, "Case #%d: %s\n", t, ans)
 }
 endsnippet
