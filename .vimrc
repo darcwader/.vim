@@ -113,6 +113,7 @@ let g:vim_markdown_folding_disabled=1
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_key_invoke_completion = '<C-space>'
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
@@ -135,5 +136,4 @@ au GUIEnter * set vb t_vb=
 let g:closetag_html_style=1 
 let g:go_fmt_command = "goimports"
 
-"execute pathogen#infect()
-
+colorscheme molokai
