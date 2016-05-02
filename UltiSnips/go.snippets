@@ -23,8 +23,8 @@ import (
 var testInp string = \`\`
 
 const (
-	input  = "" //"" for string
-	output = "" //"" for stdout
+	input  = "" //"" for string, "stdin" or "filename"
+	output = ""      //"" for stdout
 )
 
 /* START TEMPLATE {{{ */
@@ -38,6 +38,8 @@ func init() {
 	var err error
 	if input == "" {
 		r = bufio.NewReader(strings.NewReader(testInp))
+	} else if input == "stdin" {
+		r = os.Stdin
 	} else if r, err = os.Open(input); err != nil {
 		panic(err)
 	}
@@ -54,10 +56,10 @@ func main() {
 	defer b.Close()
 	defer w.Flush()
 
-	var T uint
+	var T uint64
 	fmt.Fscan(r, &T)
 
-	var t uint
+	var t uint64
 	for t = 1; t <= T; t++ {
 		testCase(t)
 	}
@@ -65,7 +67,7 @@ func main() {
 
 /* END TEMPLATE }}} */
 
-func testCase(t uint) {
+func testCase(t uint64) {
 	var ans string
 	fmt.Fprintf(w, "Case #%d: %s\n", t, ans)
 }

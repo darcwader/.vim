@@ -64,7 +64,6 @@ endif
 
 let mapleader = ","
 imap jj <Esc>
-imap <leader>/ </<C-x><C-p>>
 nmap k gk
 nmap j gj
 nmap <C-j> <C-w>j
@@ -77,14 +76,6 @@ nmap <leader>q :q<CR>
 nmap <leader>w :w<CR>
 nmap <leader>u :Tabularize /\|<CR>
 
-" Golang 
-nmap <leader>i :GoImports<CR>
-nmap <leader>b :GoBuild<CR>
-nmap <leader>r :!go run %
-nmap <leader>rr :!go run %<CR>
-nmap <leader>tt :!go run %<CR>
-nmap <leader>ts :!go run % <*small*.in >small.out
-nmap <leader>tl :!go run % <*large*.in >large.out
 
 
 nmap <leader>h :set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
@@ -114,6 +105,7 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_key_invoke_completion = '<C-space>'
+let g:ycm_show_diagnostics_ui = 0
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
@@ -128,8 +120,6 @@ let g:go_fmt_autosave = 1
 
 
 au BufRead,BufNewFile *.json set filetype=json
-au FileType go set foldmethod=marker
-
 "disable bells
 au GUIEnter * set vb t_vb=
 
