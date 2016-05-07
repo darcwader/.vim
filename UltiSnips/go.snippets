@@ -72,3 +72,11 @@ func testCase(t uint64) {
 	fmt.Fprintf(w, "Case #%d: %s\n", t, ans)
 }
 endsnippet
+
+
+snippet forr "For range loop" b
+for ${2:name} := range ${1:collection} {
+	${0:${VISUAL}}
+}
+endsnippet
+
