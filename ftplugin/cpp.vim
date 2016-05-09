@@ -1,2 +1,3 @@
-nmap <leader>r :!g++ -Wall -O2 --std=c++11 -g % -o fj
-nmap <leader>b :make 
+nmap <leader>r :!./a.out <CR>
+nmap <leader>b :make <CR>
+set foldmethod=marker

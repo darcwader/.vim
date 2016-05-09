@@ -48,7 +48,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git zshmarks jump xcode)
+plugins=(git zshmarks jump xcode docker jira jsontools sudo web-search osx)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -74,6 +74,9 @@ alias vim='mvim -v'
 alias vi='mvim -v'
 alias mysql=/usr/local/mysql/bin/mysql
 alias mysqladmin=/usr/local/mysql/bin/mysqladmin
+alias mm='ln -s /Volumes/STASH/darshansonde/Work/Repos/cpp/Makefile Makefile'
+alias a='a.out'
+alias run='a.out <~/Downloads/*.in >~/Downloads/output.txt'
 
 
 # Compilation flags

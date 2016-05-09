@@ -1,24 +1,38 @@
 snippet gcja "simple"
-#include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <algorithm>
 #include <cmath>
 #include <cstring>
+#include <iostream>
+#include <vector>
+#include <sstream>
 using namespace std;
 
+typedef long long ll;
 typedef unsigned int uint;
-#define forn(i,n) for(decltype(n) i=0;i<(n);i++)
+#define forn(i,n) for(i=0;i<(n);i++)
+template<typename T> ostream &operator <<(ostream &os, const vector<T> &v) {
+        copy(v.begin(), v.end(), ostream_iterator<T>(os, " "));
+            return os;
+}
 
 int main(int argc, char *argv[]) {
 
     if(DEBUG) freopen("input.txt","r",stdin);
 
-    uint T;
-    cin >> T;
-    forn(TC,T) {
-                 
+    uint TT, TC;
+	scanf("%d", &TT);
+    forn(TC,TT) {
+		$0                 
+		cout << "Case #" << TC+1 << ": " << endl;
     }
     return 0;
+}
+endsnippet
+snippet oper "vector print"
+template<typename T> ostream &operator <<(ostream &os, const vector<T> &v) {
+        copy(v.begin(), v.end(), ostream_iterator<T>(os, " "));
+            return os;
 }
 endsnippet
