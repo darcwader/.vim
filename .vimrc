@@ -1,12 +1,9 @@
-
-
 set nocompatible
 set autoindent
 set nobackup
 set history=100
 set undolevels=200
 set ruler
-set showcmd
 set wrap
 set noerrorbells			" no beeps.
 set noeb vb t_vb=
@@ -15,6 +12,7 @@ set listchars=tab:>-,trail:~,eol:$
 set iskeyword=@,48-57,192-255,_,-
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set expandtab
 set ttyscroll=0 
 set ttyfast
@@ -28,6 +26,8 @@ set hlsearch
 set tags+=tags
 set showmatch
 set wildmenu
+set wildmode=list:longest
+
 set re=1 "ruby file is very slow so keep this to 
 set laststatus=2
 set backspace=indent,eol,start
@@ -39,10 +39,21 @@ set autowrite
 set hidden
 set noshowmatch
 set completeopt=menu,menuone
-set pumheight=10
+set pumheight=10 "prompt height
 set nocursorcolumn
 set nocursorline
 set lazyredraw
+
+set autowriteall
+set clipboard=unnamed
+
+set scrolloff=3
+set showmode
+set showcmd
+set gdefault
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=85
 
 
 filetype off
@@ -62,18 +73,21 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'fatih/vim-go'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'ervandew/supertab'
 Plugin 'gilligan/vim-lldb'
 Plugin 'Yggdroot/indentLine'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'keith/swift.vim'
+Plugin 'ervandew/supertab'
+Plugin 'tmhedberg/SimpylFold'
+
 call vundle#end()
 
 filetype plugin indent on
 
 
 if &t_Co > 2 || has("gui_running")
-    set guifont=Inconsolata:h16
+    colo murphy
+    set guifont=Inconsolata:h14
     set guioptions-=r
     set guioptions-=T
 endif
@@ -91,7 +105,9 @@ endif
 
 
 let mapleader = ","
-imap jj <Esc>
+
+"moving
+inoremap jj <Esc>
 nmap k gk
 nmap j gj
 nmap <C-j> <C-w>j
@@ -99,28 +115,51 @@ nmap <C-k> <C-w>k
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
 
-" go bindings
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
-
-" Open :GoDeclsDir with ctrl-g
-nmap <C-g> :GoDeclsDir<cr>
-imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-
-
-
+"searching
+nnoremap / /\v
+vnoremap / /\v
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap Y y$
+nnoremap <leader><space> :noh<CR>
+nnoremap <tab> %
+vnoremap <tab> %
+nnoremap <c-s> :%s/
+vnoremap <c-s> :s/
 
+"disable F1 mistakes
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+"navigation
+nnoremap <silent> <F3> :YRShow<cr>
+inoremap <silent> <F3> <ESC>:YRShow<cr>
+nnoremap <F12> :buffers<CR>:buffer<Space>
 map <F10> :runtime! ftplugin/main.vim<CR>
-nmap ; :NERDTreeToggle<CR> 
-let NERDTreeQuitOnOpen = 0
+noremap H ^
+noremap L $
+vnoremap L g_
+
+"error navigation
+nnoremap <left> :cprev<cr>zvzz
+nnoremap <right> :cnext<cr>zvzz
+
+nmap <leader>; :NERDTreeToggle<CR> 
+nmap <leader>p :TlistToggle<CR>
+nnoremap <space> za
+nmap <leader><tab> :Scratch<CR>
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR> 
+nnoremap <leader>w :q<CR>
+
+"invisible chars toggle
+noremap <leader>i :set list!<cr>
+"let NERDTreeQuitOnOpen = 0 "use this to keep NERDTREE open on left side
+
+let $Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 " disable md folding 
-"let g:vim_markdown_folding_disabled=1
-
+let g:vim_markdown_folding_disabled=1
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -132,7 +171,9 @@ let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_extra_conf_globlist = ['/Volumes/STASH/darshansonde/Work/Repos/cpp/*']
 let g:enable_ycm_at_startup = 0
-
+let g:ycm_path_to_python_interpreter="/usr/bin/python"
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -152,65 +193,30 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_generate_tags = 1
 let g:go_highlight_build_constraints = 1
 
+"hide pyc files in nerdtree
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
+"save last cursor location
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+au FocusLost * :wa "save on losing focus
 
 au BufRead,BufNewFile *.json set filetype=json
-au BufRead,BufNewFile *.go set foldmethod=marker
 "disable bells
 au GUIEnter * set vb t_vb=
 autocmd BufEnter * silent! lcd %:p:h
 
+"autocmd vimenter * NERDTree
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
-augroup go
-  autocmd!
-
-  " Show by default 4 spaces for a tab
-  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
-
-  " :GoBuild and :GoTestCompile
-  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-
-  " :GoTest
-  autocmd FileType go nmap <leader>t  <Plug>(go-test)
-
-  " :GoRun
-  autocmd FileType go nmap <leader>r  <Plug>(go-run)
-
-  " :GoDoc
-  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
-
-  " :GoCoverageToggle
-  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-
-  " :GoInfo
-  autocmd FileType go nmap <Leader>n <Plug>(go-info)
-  autocmd FileType go nmap <Leader>i :GoImports<CR>
-
-  " :GoMetaLinter
-  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
-
-  " :GoDef but opens in a vertical split
-  autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
-  " :GoDef but opens in a horizontal split
-  autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
-
-  " :GoAlternate  commands :A, :AV, :AS and :AT
-  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-augroup END
-
-" build_go_files is a custom function that builds or compiles the test file.
-" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
-function! s:build_go_files()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#cmd#Test(0, 1)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Build(0)
-  endif
-endfunction
+"  property load folding for python sympylfold plugin
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 syntax on
 let g:rehash256 = 1
+
 colorscheme molokai
