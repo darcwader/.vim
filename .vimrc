@@ -28,6 +28,9 @@ set hlsearch
 set tags+=tags
 set showmatch
 set wildmenu
+set noswapfile
+set autowriteall
+set clipboard=unnamed
 
 
 filetype off
@@ -47,7 +50,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'fatih/vim-go'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'ervandew/supertab'
+Plugin 'tmhedberg/SimpylFold'
 
 
 call vundle#end()
@@ -56,10 +59,9 @@ filetype plugin indent on
 
 syntax on
 
-set noantialias
 if &t_Co > 2 || has("gui_running")
 	colo murphy
-    set guifont=Monaco:h10
+    set guifont=Inconsolata:h14
     set guioptions-=r
     set guioptions-=T
 endif
@@ -73,9 +75,17 @@ nmap <C-k> <C-w>k
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
 
+
+nnoremap <F12> :buffers<CR>:buffer<Space>
+
 map <F10> :runtime! ftplugin/main.vim<CR>
 nmap ; :NERDTreeToggle<CR> 
-let NERDTreeQuitOnOpen = 0
+"let NERDTreeQuitOnOpen = 0
+nmap <leader>d :TaskList<CR>
+nmap <leader>p :TlistToggle<CR>
+nnoremap <space> za
+
+let $Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 " disable md folding 
 let g:vim_markdown_folding_disabled=1
@@ -85,12 +95,8 @@ let g:vim_markdown_folding_disabled=1
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_warning_symbol = ">"
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_extra_conf_globlist = ['/Volumes/STASH/darshansonde/Work/Repos/cpp/*']
-
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -102,11 +108,17 @@ let g:go_fmt_comand = "goimports"
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_autosave = 1
 
+"hide pyc files in nerdtree
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
 
 au BufRead,BufNewFile *.json set filetype=json
-au BufRead,BufNewFile *.go set foldmethod=marker
+"au BufRead,BufNewFile *.go set foldmethod=marker
 "disable bells
 au GUIEnter * set vb t_vb=
+"autocmd vimenter * NERDTree
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
 
 colorscheme molokai
