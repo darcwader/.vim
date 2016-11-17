@@ -66,6 +66,7 @@ Plugin 'ervandew/supertab'
 Plugin 'gilligan/vim-lldb'
 Plugin 'Yggdroot/indentLine'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'keith/swift.vim'
 call vundle#end()
 
 filetype plugin indent on
