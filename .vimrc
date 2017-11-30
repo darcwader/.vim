@@ -68,17 +68,21 @@ Plugin 'Valloric/YouCompleteMe.git'
 Plugin 'mattn/emmet-vim'
 Plugin 'wincent/command-t'
 Plugin 'vim-scripts/taglist.vim'
-Plugin 'godlygeek/tabular'
+"Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'fatih/vim-go'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'gilligan/vim-lldb'
 Plugin 'Yggdroot/indentLine'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'keith/swift.vim'
 Plugin 'ervandew/supertab'
 Plugin 'tmhedberg/SimpylFold'
+"Plugin 'vim-scripts/indentpython.vim'
+"Plugin 'scrooloose/syntastic'
+"Plugin 'nvie/vim-flake8'
+Plugin 'dkprice/vim-easygrep'
+Plugin 'mtth/scratch.vim'
+
 
 call vundle#end()
 
@@ -141,22 +145,29 @@ noremap H ^
 noremap L $
 vnoremap L g_
 
+
 "error navigation
 nnoremap <left> :cprev<cr>zvzz
 nnoremap <right> :cnext<cr>zvzz
+nmap <C-down> :cclose<CR>
+nmap <C-up> :copen<CR>
 
-nmap <leader>; :NERDTreeToggle<CR> 
+nmap ; :NERDTreeToggle<CR> 
 nmap <leader>p :TlistToggle<CR>
 nnoremap <space> za
 nmap <leader><tab> :Scratch<CR>
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR> 
-nnoremap <leader>w :q<CR>
+nnoremap zz :q<CR>
+nmap <leader>s :w<CR>
+nmap <leader>/ /asdf/<CR>
 
 "invisible chars toggle
 noremap <leader>i :set list!<cr>
 "let NERDTreeQuitOnOpen = 0 "use this to keep NERDTREE open on left side
+"
+"let $Tlist_Ctags_Cmd='/usr/local/bin/ctags'
+let g:ctrlp_extensions = ['tag']
 
-let $Tlist_Ctags_Cmd='/usr/local/bin/ctags'
+let g:CommandTMaxFiles=200000
 
 " disable md folding 
 let g:vim_markdown_folding_disabled=1
@@ -169,8 +180,8 @@ let g:ycm_show_diagnostics_ui = 0
 let g:ycm_warning_symbol = ">"
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_extra_conf_globlist = ['/Volumes/STASH/darshansonde/Work/Repos/cpp/*']
-let g:enable_ycm_at_startup = 0
+"let g:ycm_extra_conf_globlist = ['/Volumes/STASH/darshansonde/Work/Repos/cpp/*']
+"let g:enable_ycm_at_startup = 1
 let g:ycm_path_to_python_interpreter="/usr/bin/python"
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -212,9 +223,33 @@ autocmd BufEnter * silent! lcd %:p:h
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
+" flag bad whitespace
+"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
 "  property load folding for python sympylfold plugin
 autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+autocmd FileType python nnoremap <buffer> <leader>r :exec '!python' shellescape(@%, 1)<cr>
+"au BufNewFile,BufRead *.py
+"    \ set tabstop=4
+"    \ set softtabstop=4
+"    \ set shiftwidth=4
+"    \ set textwidth=79
+"    \ set expandtab
+"    \ set autoindent
+"    \ set fileformat=unix
+"
+"au BufNewFile,BufRead *.js, *.html, *.css
+"    \ set tabstop=2
+"    \ set softtabstop=2
+"    \ set shiftwidth=2
+
+set encoding=utf-8
+
+set foldlevelstart=20
+let python_highlight_all=1
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
 
 syntax on
 let g:rehash256 = 1
