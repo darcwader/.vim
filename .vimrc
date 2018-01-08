@@ -53,6 +53,7 @@ set showcmd
 set gdefault
 set textwidth=79
 set formatoptions=qrn1
+set modeline
 
 
 filetype off
@@ -81,6 +82,7 @@ Plugin 'tmhedberg/SimpylFold'
 "Plugin 'nvie/vim-flake8'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'mtth/scratch.vim'
+Plugin 'ervandew/screen'
 
 
 call vundle#end()
@@ -124,7 +126,6 @@ vnoremap / /\v
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap Y y$
-nnoremap <leader><space> :noh<CR>
 nnoremap <tab> %
 vnoremap <tab> %
 nnoremap <c-s> :%s/
@@ -152,12 +153,12 @@ nmap <C-down> :cclose<CR>
 nmap <C-up> :copen<CR>
 
 nmap ; :NERDTreeToggle<CR> 
-nmap <leader>p :TlistToggle<CR>
-nnoremap <space> za
-nmap <leader><tab> :Scratch<CR>
+nnoremap <space> <C-d>
 nnoremap zz :q<CR>
 nmap <leader>s :w<CR>
 nmap <leader>/ /asdf/<CR>
+nmap <leader>p :TlistToggle<CR>
+nmap <leader><tab> :Scratch<CR>
 
 "invisible chars toggle
 noremap <leader>i :set list!<cr>
@@ -228,7 +229,6 @@ autocmd FileType html,css EmmetInstall
 "  property load folding for python sympylfold plugin
 autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-autocmd FileType python nnoremap <buffer> <leader>r :exec '!python' shellescape(@%, 1)<cr>
 "au BufNewFile,BufRead *.py
 "    \ set tabstop=4
 "    \ set softtabstop=4
@@ -249,8 +249,13 @@ set foldlevelstart=20
 let python_highlight_all=1
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
-
 syntax on
 let g:rehash256 = 1
+
+let g:ScreenImpl = "Tmux"
+let g:ScreenShellTmuxInitArgs = '-2'
+
+nmap <leader>r :ScreenSend<cr>
+nmap <leader>x :ScreenQuit<cr>
 
 colorscheme pablo
