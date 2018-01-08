@@ -53,7 +53,6 @@ set showcmd
 set gdefault
 set textwidth=79
 set formatoptions=qrn1
-set colorcolumn=85
 
 
 filetype off
@@ -254,4 +253,4 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 syntax on
 let g:rehash256 = 1
 
-colorscheme molokai
+colorscheme pablo
