@@ -8,7 +8,7 @@ set wrap
 set noerrorbells			" no beeps.
 set noeb vb t_vb=
 set so=5				" scroll offset 5 lines
-set listchars=tab:>-,trail:~,eol:$
+set listchars=tab:>-,trail:~,eol:¬
 set iskeyword=@,48-57,192-255,_,-
 set tabstop=4
 set shiftwidth=4
@@ -22,7 +22,7 @@ set relativenumber
 set ignorecase
 set incsearch
 set smartcase
-set hlsearch
+set nohlsearch "dont like highlits everywhere
 set tags+=tags
 set showmatch
 set wildmenu
@@ -121,8 +121,6 @@ nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
 
 "searching
-nnoremap / /\v
-vnoremap / /\v
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap Y y$
@@ -182,7 +180,7 @@ let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_enable_diagnostic_signs = 0
 "let g:ycm_extra_conf_globlist = ['/Volumes/STASH/darshansonde/Work/Repos/cpp/*']
 "let g:enable_ycm_at_startup = 1
-let g:ycm_path_to_python_interpreter="/usr/bin/python"
+let g:ycm_path_to_python_interpreter="/home/bruce/Lib/anaconda3/bin/python"
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -255,7 +253,8 @@ let g:rehash256 = 1
 let g:ScreenImpl = "Tmux"
 let g:ScreenShellTmuxInitArgs = '-2'
 
-nmap <leader>r :ScreenSend<cr>
-nmap <leader>x :ScreenQuit<cr>
+nmap <leader>rr :.ScreenSend<cr>
+vmap <leader>rr :ScreenSend<cr>
+nmap <leader>rx :ScreenQuit<cr>
 
-colorscheme pablo
+colorscheme delek
