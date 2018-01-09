@@ -92,7 +92,7 @@ filetype plugin indent on
 
 if &t_Co > 2 || has("gui_running")
     colo murphy
-    set guifont=Inconsolata:h14
+    set guifont=Inconsolata:h12
     set guioptions-=r
     set guioptions-=T
 endif
