@@ -8,7 +8,7 @@ set wrap
 set noerrorbells			" no beeps.
 set noeb vb t_vb=
 set so=5				" scroll offset 5 lines
-set listchars=tab:>-,trail:~,eol:¬
+set listchars=tab:>-,trail:~,eol:$
 set iskeyword=@,48-57,192-255,_,-
 set tabstop=4
 set shiftwidth=4
@@ -54,6 +54,7 @@ set gdefault
 set textwidth=79
 set formatoptions=qrn1
 set modeline
+set viminfo='10,\"100,:20,%,n~/.viminfo
 
 
 filetype off
@@ -66,23 +67,25 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'Valloric/YouCompleteMe.git'
 Plugin 'mattn/emmet-vim'
-Plugin 'wincent/command-t'
 Plugin 'vim-scripts/taglist.vim'
 "Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'fatih/vim-go'
+"Plugin 'plasticboy/vim-markdown'
+"Plugin 'fatih/vim-go'
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'Yggdroot/indentLine'
+"Plugin 'honza/vim-snippets'
+"Plugin 'Yggdroot/indentLine'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ervandew/supertab'
 Plugin 'tmhedberg/SimpylFold'
 "Plugin 'vim-scripts/indentpython.vim'
-"Plugin 'scrooloose/syntastic'
-"Plugin 'nvie/vim-flake8'
-Plugin 'dkprice/vim-easygrep'
-Plugin 'mtth/scratch.vim'
-Plugin 'ervandew/screen'
+Plugin 'scrooloose/syntastic'
+Plugin 'nvie/vim-flake8'
+"Plugin 'dkprice/vim-easygrep'
+"Plugin 'mtth/scratch.vim'
+"Plugin 'ervandew/screen'
+Plugin 'leafgarland/typescript-vim'
+"Plugin 'kylef/apiblueprint.vim'
+
 
 
 call vundle#end()
@@ -92,7 +95,7 @@ filetype plugin indent on
 
 if &t_Co > 2 || has("gui_running")
     colo murphy
-    set guifont=Inconsolata:h12
+    set guifont=Inconsolata:h10
     set guioptions-=r
     set guioptions-=T
 endif
@@ -157,6 +160,7 @@ nmap <leader>s :w<CR>
 nmap <leader>/ /asdf/<CR>
 nmap <leader>p :TlistToggle<CR>
 nmap <leader><tab> :Scratch<CR>
+nmap <leader>b :w<CR>:make<CR>
 
 "invisible chars toggle
 noremap <leader>i :set list!<cr>
@@ -174,13 +178,13 @@ let g:vim_markdown_folding_disabled=1
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:ycm_show_diagnostics_ui = 0
+let g:ycm_show_diagnostics_ui = 1
 let g:ycm_warning_symbol = ">"
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_enable_diagnostic_signs = 0
 "let g:ycm_extra_conf_globlist = ['/Volumes/STASH/darshansonde/Work/Repos/cpp/*']
 "let g:enable_ycm_at_startup = 1
-let g:ycm_path_to_python_interpreter="/home/bruce/Lib/anaconda3/bin/python"
+let g:ycm_path_to_python_interpreter="/usr/bin/python"
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -213,20 +217,24 @@ endif
 au FocusLost * :wa "save on losing focus
 
 au BufRead,BufNewFile *.json set filetype=json
+let g:vim_json_syntax_conceal = 0
 "disable bells
 au GUIEnter * set vb t_vb=
 autocmd BufEnter * silent! lcd %:p:h
 
 "autocmd vimenter * NERDTree
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+let g:user_emmet_install_global = 1
+let g:user_emmet_leader_key = '<leader>'
+autocmd FileType html,css,sass,scss,less EmmetInstall
+
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " flag bad whitespace
 "au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 "  property load folding for python sympylfold plugin
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+"autocmd BufWinEnter *.py setlocal foldmethod=indent
+"autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 "au BufNewFile,BufRead *.py
 "    \ set tabstop=4
 "    \ set softtabstop=4
@@ -245,7 +253,6 @@ set encoding=utf-8
 
 set foldlevelstart=20
 let python_highlight_all=1
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 syntax on
 let g:rehash256 = 1
@@ -253,8 +260,9 @@ let g:rehash256 = 1
 let g:ScreenImpl = "Tmux"
 let g:ScreenShellTmuxInitArgs = '-2'
 
-nmap <leader>rr :.ScreenSend<cr>
-vmap <leader>rr :ScreenSend<cr>
-nmap <leader>rx :ScreenQuit<cr>
+nmap <leader>r :!python %<CR>
+"nmap <leader>rr :ScreenSend<cr>
+"vmap <leader>rr :ScreenSend<cr>
+"nmap <leader>rx :ScreenQuit<cr>
 
 colorscheme delek
