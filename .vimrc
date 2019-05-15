@@ -265,4 +265,4 @@ nmap <leader>r :!python %<CR>
 "vmap <leader>rr :ScreenSend<cr>
 "nmap <leader>rx :ScreenQuit<cr>
 
-colorscheme delek
+colorscheme molokai
