@@ -64,13 +64,12 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree.git'
-Plugin 'Valloric/YouCompleteMe.git'
 Plugin 'mattn/emmet-vim'
 Plugin 'wincent/command-t'
 Plugin 'vim-scripts/taglist.vim'
 "Plugin 'godlygeek/tabular'
+Plugin 'davidhalter/jedi-vim'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'fatih/vim-go'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Yggdroot/indentLine'
@@ -83,6 +82,7 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'mtth/scratch.vim'
 Plugin 'ervandew/screen'
+Plugin 'lilydjwg/colorizer'
 
 
 call vundle#end()
@@ -135,33 +135,35 @@ nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
 "navigation
-nnoremap <silent> <F3> :YRShow<cr>
-inoremap <silent> <F3> <ESC>:YRShow<cr>
-nnoremap <F12> :buffers<CR>:buffer<Space>
-map <F10> :runtime! ftplugin/main.vim<CR>
 noremap H ^
 noremap L $
 vnoremap L g_
-
-
-"error navigation
-nnoremap <left> :cprev<cr>zvzz
-nnoremap <right> :cnext<cr>zvzz
-nmap <C-down> :cclose<CR>
-nmap <C-up> :copen<CR>
+nnoremap <left> <c-o>
+nnoremap <right> <c-i>
+nnoremap <F12> :buffers<CR>:buffer<Space>
+nmap <down> :bnext<CR>
+nmap <up> :bprev<CR>
 
 nmap ; :NERDTreeToggle<CR> 
 nnoremap <space> <C-d>
-nnoremap zz :q<CR>
+
+"leader mappings
 nmap <leader>s :w<CR>
 nmap <leader>/ /asdf/<CR>
 nmap <leader>p :TlistToggle<CR>
 nmap <leader><tab> :Scratch<CR>
 
+nmap <leader>bl :buffers<CR>:buffer<Space>
+nmap <leader>bb :CtrlPBuffer<cr>
+nmap <leader>bm :CtrlPMixed<cr>
+nmap <leader>bu :CtrlPMRU<cr>
+nmap <leader>bn :bnext<cr>
+nmap <leader>bp :bprev<cr>
+
 "invisible chars toggle
 noremap <leader>i :set list!<cr>
+
 "let NERDTreeQuitOnOpen = 0 "use this to keep NERDTREE open on left side
-"
 "let $Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 let g:ctrlp_extensions = ['tag']
 
@@ -170,19 +172,7 @@ let g:CommandTMaxFiles=200000
 " disable md folding 
 let g:vim_markdown_folding_disabled=1
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_warning_symbol = ">"
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_enable_diagnostic_signs = 0
-"let g:ycm_extra_conf_globlist = ['/Volumes/STASH/darshansonde/Work/Repos/cpp/*']
-"let g:enable_ycm_at_startup = 1
-let g:ycm_path_to_python_interpreter="/home/bruce/Lib/anaconda3/bin/python"
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
