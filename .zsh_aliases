@@ -1,0 +1,30 @@
+alias k='microk8s kubectl --kubeconfig=/home/darshansonde/.kube/som-insureka-config --insecure-skip-tls-verify=true'
+
+alias makemigrations='python manage.py makemigrations'
+alias rm='rm -i'
+alias runserver='python manage.py runserver'
+alias run='python manage.py runserver'
+alias runcelery='python manage.py runcelery'
+alias migrate='python manage.py migrate'
+alias showmigrations='python manage.py showmigrations'
+alias activate='source venv/bin/activate'
+alias shell='python manage.py shell'
+alias dj='python manage.py'
+alias dotenv='export $(cat .env | grep -v ^# | xargs)'
+alias dotenvdev='export $(cat .env.dev | grep -v ^# | xargs)'
+alias dotenvstaging='export $(cat .env.dev | grep -v ^# | xargs)'
+alias createsuperuser='python manage.py createsuperuser'
+alias createadmin='python manage.py createsuperuser --username admin --email admin@sonde.in'
+alias secretkey="python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_ke-y())'"
+alias kkk='killall dolphin; killall krita; killall firefox; sudo umount ~/Private'
+
+alias xsel='xsel -p'
+
+alias disks='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL | grep -v loop'
+alias mountinfo=mount -v | grep "^/" | awk '{print "\nPartition identifier: " $1  "\n Mountpoint: "  $3}'
+alias space='btrfs df -h .'
+
+alias openapi-diff='docker run --rm -t -v $(pwd)/core/src/test/resources:/specs:ro openapitools/openapi-diff:latest'
+
+alias rm_node_modules="find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
+
